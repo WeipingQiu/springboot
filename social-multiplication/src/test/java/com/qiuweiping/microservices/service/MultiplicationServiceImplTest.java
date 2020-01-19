@@ -1,6 +1,8 @@
 package com.qiuweiping.microservices.service;
 
 import com.qiuweiping.microservices.domain.Multiplication;
+import com.qiuweiping.microservices.domain.MultiplicationResultAttempt;
+import com.qiuweiping.microservices.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -11,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class MultiplicationServiceImpleTest {
-    private Logger logger = LoggerFactory.getLogger(MultiplicationServiceImpleTest.class);
+public class MultiplicationServiceImplTest {
+    private Logger logger = LoggerFactory.getLogger(MultiplicationServiceImplTest.class);
     private MultiplicationServiceImpl multiplicationServiceImpl;
 
     @Mock
@@ -33,5 +35,26 @@ public class MultiplicationServiceImpleTest {
         assertThat(multiplication.getFactorB()).isEqualTo(30);
         assertThat(multiplication.getResult()).isEqualTo(1500);
         logger.debug("End");
+    }
+
+    @Test
+    public void checkCorrectAttemptTest() {
+        Multiplication multiplication = new Multiplication(50, 60);
+        User user = new User("John_doe");
+        MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3000);
+
+        boolean attemptResult = multiplicationServiceImpl.checkAttempt(attempt);
+        assertThat(attemptResult).isTrue();
+    }
+
+    @Test
+    public void checkWrongAttemptTest() {
+        Multiplication multiplication = new Multiplication(50, 60);
+        User user = new User("test");
+        MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3010);
+
+        boolean attemptResult = multiplicationServiceImpl.checkAttempt(attempt);
+        assertThat(attemptResult).isFalse();
+
     }
 }

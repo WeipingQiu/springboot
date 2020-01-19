@@ -1,6 +1,6 @@
 package com.qiuweiping.microservices.domain;
 
-public class Multiplication {
+public final class Multiplication {
     private int factorA;
     private int factorB;
 
@@ -11,29 +11,20 @@ public class Multiplication {
         this.factorB = factorB;
         this.result = factorA * factorB;
     }
+    public Multiplication() {
+        this (0, 0);
+    }
 
     public int getFactorA() {
         return factorA;
-    }
-
-    public void setFactorA(int factorA) {
-        this.factorA = factorA;
     }
 
     public int getFactorB() {
         return factorB;
     }
 
-    public void setFactorB(int factorB) {
-        this.factorB = factorB;
-    }
-
     public int getResult() {
         return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
     }
 
     @Override
