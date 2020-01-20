@@ -18,6 +18,7 @@ public class MultiplicationController {
 
     @Autowired
     public MultiplicationController(final MultiplicationService multiplicationService) {
+        log.info("Init MultiplicationController................");
         this.multiplicationService = multiplicationService;
     }
 
