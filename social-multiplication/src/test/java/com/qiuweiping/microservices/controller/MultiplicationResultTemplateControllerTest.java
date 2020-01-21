@@ -60,7 +60,7 @@ public class MultiplicationResultTemplateControllerTest {
 
         User user = new User("Name");
         Multiplication multiplication = new Multiplication(50, 70);
-        MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500);
+        MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, correct);
 
         // when
         MockHttpServletResponse response = mvc.perform(post("/results").contentType(MediaType.APPLICATION_JSON)
@@ -69,7 +69,10 @@ public class MultiplicationResultTemplateControllerTest {
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
-                .isEqualTo(jsonResponse.write(new MultiplicationResultAttemptController.ResultResponse(correct)).getJson());
+                .isEqualTo(jsonResult.write(new MultiplicationResultAttempt(attempt.getUser(),
+                           attempt.getMultiplication(),
+                           attempt.getResultAttempt(),
+                           correct)).getJson());
     }
 
 }
