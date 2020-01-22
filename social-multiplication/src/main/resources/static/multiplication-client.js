@@ -1,6 +1,5 @@
 function updateMultiplication() {
     $.ajax({
-        //url: "http://localhost:8080/multiplications/random"
         method: 'GET',
         dataType: 'json',
         url: "http://localhost:8080/multiplications/random"
